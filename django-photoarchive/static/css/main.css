@@ -1,0 +1,40 @@
+:root {
+    --main-color: #54B686;
+    --secondary-color: #434242;
+}
+
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+header {
+    background-color: var(--main-color);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.header-link {
+    color: white;
+    text-decoration: none;
+}
+
+.header-link:hover {
+    color: lightgrey;
+}
+
+footer {
+    background-color: var(--secondary-color);
+    font-family: 'Montserrat', sans-serif;  
+}
+
+.footer-link {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    color: lightgrey;
+}

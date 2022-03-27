@@ -5,3 +5,6 @@ def home(request):
 
 def about(request):
     return render(request, 'base/about.html')
+
+def contact(request):
+    return render(request, 'base/contacts.html')
