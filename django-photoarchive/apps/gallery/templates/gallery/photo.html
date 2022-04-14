@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="photo-block">
+    <div class="photo-wrapper">
+        {% load static %}
+        <img class="photo" src="{% static 'img/photos/5.jpg' %}" width="100%">
+    </div>
+    <div class="photo-description">
+        <h4>Автор фото: {{photo.author}}</h4>
+        <h4>Описание: {{photo.description}}</h4>
+        <h4>ID: {{photo.id}}</h4>
+    </div>
+</div>
+
+{% endblock content %}

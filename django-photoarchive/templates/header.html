@@ -1,8 +1,17 @@
 <header>
     <div class="header-wrapper">
         <a class="header-link" href="/">
-            <h1>ЛОГО</h1>
+            {% load static %}
+            <img class="logo" src="{% static 'img/logo_green_ru.png' %}" width="10%">
         </a>
-        <hr>
+    </div>
+    <div class="header-nav">
+        <nav>
+            <ul class="nav-links">
+                <li><a href="/gallery/">ГАЛЕРЕЯ</a></li>
+                <li><a href="/gallery/id/4/">СОБЫТИЯ</a></li>
+                <li><a href="/about/">О ПРОЕКТЕ</a></li>
+            </ul>
+        </nav>
     </div>
 </header>
