@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 photo_arr = [
-    {'id': 1, 'description': "Description placeholder #1", 'author': "Author placeholder #1", 'path':'img/photos/1.png'},
+    {'id': 1, 'description': "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 'author': "Author placeholder #1", 'path':'img/photos/1.png'},
     {'id': 2, 'description': "Description placeholder #2", 'author': "Author placeholder #2", 'path':'img/photos/2.png'},
     {'id': 3, 'description': "Description placeholder #3", 'author': "Author placeholder #3", 'path':'img/photos/3.png'},
     {'id': 4, 'description': "Перед началом посвящения ММФ. На фото - ???", 'author': "Пестерев Никита", 'path':'img/photos/4.png'},

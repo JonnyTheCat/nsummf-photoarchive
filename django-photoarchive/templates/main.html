@@ -12,9 +12,11 @@
     <body>
         {% include 'header.html' %}
 
-        {% block content %}
+        <div class="content-block">
+            {% block content %}
 
-        {% endblock %}
+            {% endblock %}
+        </div>
 
         {% include 'footer.html' %}
     </body>
