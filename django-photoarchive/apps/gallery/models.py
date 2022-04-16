@@ -1,5 +1,5 @@
-from PIL import Image
 from django.db import models
+from django.utils import timezone
 
 class Author(models.Model):
     name = models.CharField(max_length=60)
@@ -32,6 +32,7 @@ class Photo(models.Model):
     description = models.CharField("Описание", max_length=280)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     people = models.ManyToManyField(Person)
+    publish_date = models.DateTimeField(default=timezone.now)
     tags = models.ManyToManyField(Tag)
     hidden = models.BooleanField("Скрыто")
 

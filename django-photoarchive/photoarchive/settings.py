@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'apps.base',
     'apps.gallery',
 ]
@@ -79,10 +80,10 @@ WSGI_APPLICATION = 'photoarchive.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'archive_db',
-        'USER': 'root',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
         'PASSWORD': env('DB_PASS'),
-        'HOST': '127.0.0.1',
+        'HOST': env('DB_HOST'),
         'PORT': ''
     }
 }
