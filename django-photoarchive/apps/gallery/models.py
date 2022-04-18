@@ -1,26 +1,45 @@
 from django.db import models
-from django.utils import timezone
 
-class Author(models.Model):
-    name = models.CharField(max_length=60)
+
+class Photo(models.Model):
+    description = models.CharField("Описание", max_length=255)
+    author = models.CharField("Автор", max_length=30)
+    hidden = models.BooleanField("Скрыто")
+    publish_date = models.DateTimeField(auto_now_add=True)
+    year_of_capture = models.SmallIntegerField()
+    month_of_capture = models.SmallIntegerField()
+    day_of_capture = models.SmallIntegerField()
+    view_count = models.IntegerField()
+
+    people = models.ManyToManyField("Person")
+    tags = models.ManyToManyField("Tag")
 
     class Meta:
-        verbose_name = 'Автор'
-        verbose_name_plural = 'Авторы'
-    
-    pass
+        verbose_name = 'Фото'
+        verbose_name_plural = 'Фотографии'
 
-class Tag(models.Model):
-    tag_name = models.CharField(max_length=30)
+    def __unicode__(self):
+        return self.description
+
+    def __str__(self):
+        return self.description
+
+    def image_thumb(self):
+        return '<img class="photo-preview" src="/media/photos/%s" width="100%">' % (self.img)
+
+
+class Profile(models.Model):
+    description = models.TextField()
+    title_photo = models.ForeignKey(Photo, null=True, on_delete=models.SET_NULL)
 
     class Meta:
-        verbose_name = 'Тег'
-        verbose_name_plural = 'Теги'
-    
-    pass
+        verbose_name = 'Профиль'
+        verbose_name_plural = 'Профили'
+
 
 class Person(models.Model):
     name = models.CharField(max_length=60)
+    profile_id = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
 
     class Meta:
         verbose_name = 'Человек'
@@ -28,22 +47,16 @@ class Person(models.Model):
 
     pass
 
-class Photo(models.Model):
-    description = models.CharField("Описание", max_length=280)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    people = models.ManyToManyField(Person)
-    publish_date = models.DateTimeField(default=timezone.now)
-    tags = models.ManyToManyField(Tag)
-    hidden = models.BooleanField("Скрыто")
+
+class Tag(models.Model):
+    tag_name = models.CharField(max_length=30)
+    tag_type = models.SmallIntegerField()
+    popularity = models.IntegerField()
+    profile_id = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
 
     class Meta:
-        ordering = ['description']
-        verbose_name = 'Фото'
-        verbose_name_plural = 'Фотографии'
+        verbose_name = 'Тег'
+        verbose_name_plural = 'Теги'
 
-    def __unicode__(self):
-        return self.description
-    def __str__(self):
-        return self.description
-    def image_thumb(self):
-        return '<img class="photo-preview" src="/media/photos/%s" width="100%">' % (self.img)
+    pass
+
