@@ -6,3 +6,4 @@ from .models import Photo, Tag, Person, Author
 admin.site.register(Photo)
 admin.site.register(Tag)
 admin.site.register(Person)
+admin.site.register(Author)
