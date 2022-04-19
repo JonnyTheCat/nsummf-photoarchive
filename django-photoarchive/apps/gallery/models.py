@@ -2,61 +2,75 @@ from django.db import models
 
 
 class Photo(models.Model):
-    description = models.CharField("Описание", max_length=255)
-    author = models.CharField("Автор", max_length=30)
-    hidden = models.BooleanField("Скрыто")
-    publish_date = models.DateTimeField(auto_now_add=True)
-    year_of_capture = models.SmallIntegerField()
-    month_of_capture = models.SmallIntegerField()
-    day_of_capture = models.SmallIntegerField()
-    view_count = models.IntegerField()
+    description = models.CharField("Описание", max_length=255)                                  # Описание
+    author = models.CharField("Автор", max_length=30)                                           # Автор фотографии
 
-    people = models.ManyToManyField("Person")
-    tags = models.ManyToManyField("Tag")
+    people = models.ManyToManyField("Person")                                                   # Люди на фото
+    tags = models.ManyToManyField("Tag")                                                        # Теги
+
+    year_of_capture = models.SmallIntegerField()
+    month_of_capture = models.SmallIntegerField(blank=True, null=True)                          # Год, месяц и день, когда было сделано фото
+    day_of_capture = models.SmallIntegerField(blank=True, null=True)
+
+    hidden = models.BooleanField("Скрыто")                                                      # Скрыта ли фотография из галереи?
+
+    publish_date = models.DateTimeField(auto_now_add=True)                                      # Дата публикации фото на сайте
+    view_count = models.IntegerField(default=0, editable=False)                                 # Счетчик просмотров
 
     class Meta:
         verbose_name = 'Фото'
         verbose_name_plural = 'Фотографии'
 
-    def __unicode__(self):
-        return self.description
-
     def __str__(self):
         return self.description
 
-    def image_thumb(self):
-        return '<img class="photo-preview" src="/media/photos/%s" width="100%">' % (self.img)
-
-
-class Profile(models.Model):
-    description = models.TextField()
-    title_photo = models.ForeignKey(Photo, null=True, on_delete=models.SET_NULL)
-
-    class Meta:
-        verbose_name = 'Профиль'
-        verbose_name_plural = 'Профили'
-
 
 class Person(models.Model):
-    name = models.CharField(max_length=60)
-    profile_id = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
+    name = models.CharField(max_length=60)                                                      # Имя человека
+    popularity = models.IntegerField(default=0, editable=False)                                 # Популярность человека на сайте
+    
+    # Профиль человека
+    # Когда у человека значение has_profile = True, то 
+    # создаётся отдельная страница с фотографиями, на которых 
+    # отмечен этот человек, а также его биографией.
+    has_profile = models.BooleanField()                                                         # Существует ли профиль?
+    date_of_birth = models.DateField(blank=True, null=True)                                     # Дата рождения
+    date_of_death = models.DateField(blank=True, null=True)                                     # ...и смерти (если такая есть)
+    academic_title = models.CharField(blank=True, max_length=100)                               # Учёная степень (если такая есть)
+    description = models.TextField(blank=True)                                                  # Описание в профиле
+    title_photo = models.ForeignKey(Photo, blank=True, null=True, on_delete=models.SET_NULL)    # Фото профиля
 
     class Meta:
         verbose_name = 'Человек'
         verbose_name_plural = 'Люди'
 
-    pass
+    def __str__(self):
+        return self.name
 
 
 class Tag(models.Model):
-    tag_name = models.CharField(max_length=30)
-    tag_type = models.SmallIntegerField()
-    popularity = models.IntegerField()
-    profile_id = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
+
+    TAG_TYPE_CHOICES = [
+        (1, 'Места'),
+        (2, 'События'),
+        (3, 'Другое'),
+    ]
+
+    tag_name = models.CharField(max_length=40)                                                  # Имя тега
+    tag_type = models.SmallIntegerField(choices=TAG_TYPE_CHOICES)                               # Тип тега
+    popularity = models.IntegerField(default=0, editable=False)                                 # Популярность тега на сайте
+
+    # Профиль тега
+    # Когда у тега значение has_profile = True, то как и в Person 
+    # создаётся отдельная страница с фотографиями с 
+    # этим тегом и описанием этого тега.
+    has_profile = models.BooleanField()                                                         # Существует ли профиль?
+    description = models.TextField(blank=True, null=True)                                       # Описание в профиле
+    title_photo = models.ForeignKey(Photo, blank=True, null=True, on_delete=models.SET_NULL)    # Фото профиля
 
     class Meta:
         verbose_name = 'Тег'
         verbose_name_plural = 'Теги'
 
-    pass
-
+    def __str__(self):
+        return self.tag_name
