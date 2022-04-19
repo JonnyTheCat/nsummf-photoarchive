@@ -30,15 +30,22 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #3-rd party apps
     'rest_framework',
+    'django_extensions',
+
+    #Local apps
     'apps.base',
     'apps.gallery',
+    'apps.api',
 ]
 
 MIDDLEWARE = [

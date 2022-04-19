@@ -1,11 +1,4 @@
 from django.shortcuts import render
-from django.http import JsonResponse
-
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-
-from apps.gallery.models import Photo
-from apps.gallery.serializer import PhotoSerializer
 
 photo_arr = [
     {'id': 1, 'description': "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 'author': "Author placeholder #1", 'path':'img/photos/1.png'},
@@ -26,9 +19,3 @@ def photo(request, photo_id):
             photo = i
     context = {'photo': photo}
     return render(request, 'gallery/photo.html', context)
-
-@api_view(['GET'])
-def photo_list(request):
-    photos = Photo.objects.all() # Complex Data
-    serializer = PhotoSerializer(photos, many=True)
-    return Response(serializer.data)
