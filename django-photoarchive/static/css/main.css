@@ -25,6 +25,7 @@ header {
 }
 
 li, a {
+    vertical-align: middle;
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
     font-size: 16px;
@@ -34,6 +35,25 @@ li, a {
 
 .logo {
     cursor: pointer;
+}
+
+.plus-radius {
+    display: inline-block;
+    vertical-align: middle;
+    width:25px;
+    height:25px;
+  
+    background:
+        linear-gradient(#FFF,#FFF) top left,
+        linear-gradient(#FFF,#FFF) top right,
+        linear-gradient(#FFF,#FFF) bottom left,
+        linear-gradient(#FFF,#FFF) bottom right;
+    
+    background-size: calc(50% - 1px) calc(50% - 1px);
+    background-repeat:no-repeat;
+    border:4px solid #FFF;
+    box-sizing:border-box;
+    border-radius:50%;
 }
 
 .nav-links {

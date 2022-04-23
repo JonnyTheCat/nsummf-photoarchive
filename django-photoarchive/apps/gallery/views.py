@@ -9,6 +9,9 @@ def error_404(request):
 def gallery(request):
     return render(request, 'gallery/gallery.html')
 
+def upload_photo(request):
+    return render(request, 'gallery/upload_photo.html')
+
 def photo(request, photo_id):
     try:
         photo = Photo.objects.get(pk=photo_id)
