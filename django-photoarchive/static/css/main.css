@@ -111,7 +111,6 @@ footer {
 .photo-block {
     display: grid;
     grid-template-columns: 6.5fr 3.5fr;
-    min-height: 75%;
 }
 
 .photo-description {
@@ -122,6 +121,11 @@ footer {
     font-weight: 500;
     font-size: 16px;
     border-radius: 0px 2% 2% 0px;
+}
+
+.photo {
+    object-fit: contain;
+    object-position: 50% 50%;
 }
 
 .description-text {
