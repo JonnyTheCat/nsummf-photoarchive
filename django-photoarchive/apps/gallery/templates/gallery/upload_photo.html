@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Загрузить фотографии</h1>
+<h1 class="mb-4">Загрузить фотографии</h1>
 
 <form method="post">
     <div class="row">
@@ -12,10 +12,6 @@
                     <div class="col">
                         <div class="mb-3">
                             <input type="text" class="form-control" id="AuthorName" placeholder="Автор">
-                        </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="">
-                            <label class="form-check-label" for="exampleCheck1">Общий автор</label>
                         </div>
                     </div>
                     <div class="col-2 mb-3">
@@ -30,6 +26,21 @@
                 </div>
 
                 <div class="row">
+                    <div class="col">
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="">
+                            <label class="form-check-label" for="exampleCheck1">Общий автор</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="">
+                            <label class="form-check-label" for="exampleCheck1">Общая дата</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col mb-3">
                         <textarea class="form-control" id="Description" rows="3" placeholder="Описание (краткое)"></textarea>
                     </div>
@@ -37,21 +48,21 @@
 
                 <div class="row">
                     <div class="col mb-3">
-                        <button type="button" id="PreviousImageButton" onclick="prevImage();">Назад</button>
+                        <button type="button" id="PreviousImageButton" class="btn btn-primary primary-color" onclick="prevImage();" disabled>Назад</button>
                     </div>
                     <div class="col mb-3">
-                        <button type="button" id="NextImageButton" onclick="nextImage();">Вперёд</button>
+                        <button type="button" id="NextImageButton" class="btn btn-primary primary-color float-end" onclick="nextImage();" disabled>Вперёд</button>
                     </div>
                 </div>
 
             </div>
         </div>
         <div class="col">
-            <div class="row mt-1">
-                <input type="file" id="ImagesInput" onchange="showImage();" accept="image/*" multiple>
+            <div class="row">
+                <input type="file" id="ImagesInput" class="form-control" onchange="showImage();" accept="image/*" multiple>
             </div>
             <div class="row mb-3">
-                <img id="PhotoView" src="" alt="">
+                <img class="img-fluid" id="PhotoView" src="" alt="">
             </div>
         </div>
     </div>
@@ -65,8 +76,7 @@
     reader.onload = function (e) {
         $('#PhotoView')
             .attr('src', e.target.result)
-            .width(500);
-        $('#PhotoView').attr('alt', 'PhotoPreview')
+            .attr('alt', 'PhotoPreview');
         $('#ImagesInput').hide();
     };
     
@@ -74,6 +84,8 @@
         if (ImagesInput.files && ImagesInput.files[0]) {
             reader.readAsDataURL(ImagesInput.files[0]);
             uploadedImages = ImagesInput.files.length;
+            $('#PreviousImageButton').prop('disabled', false);
+            $('#NextImageButton').prop('disabled', false);
         }
     }
 
