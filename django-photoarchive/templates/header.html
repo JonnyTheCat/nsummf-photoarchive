@@ -1,17 +1,35 @@
-<header>
-    <div class="header-wrapper">
-        <a class="header-link" href="/">
-            {% load static %}
-            <img class="logo" src="{% static 'img/logo_green_ru.svg' %}" width="125">
-        </a>
-    </div>
-    <div class="header-nav">
-        <nav>
-            <ul class="nav-links">
-                <li><a href="/gallery/">ГАЛЕРЕЯ</a></li>
-                <li><a href="/gallery/id/1/">СОБЫТИЯ</a></li>
-                <li><a href="/about/">О ПРОЕКТЕ</a></li>
-            </ul>
-        </nav>
-    </div>
+<header class="d-flex">
+    <a class="align-items-center mb-3 mb-md-0 me-md-auto" href="/">
+        {% load static %}
+        <img class="logo" src="{% static 'img/logo_green_ru.svg' %}" width="125">
+    </a>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top sticky-top">
+        <ul class="navbar-nav">
+            <li class="nav-item me-2">
+                <a class="nav-link" href="/gallery/">ГАЛЕРЕЯ</a>
+            </li>
+
+            <li class="nav-item dropdown me-2">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">ПРОФИЛИ</a>
+                <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                    <li><a class="dropdown-item" href="#">Люди</a></li>
+                    <li><a class="dropdown-item" href="#">Места и события</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item me-5">
+                <a class="nav-link" href="/about/">О ПРОЕКТЕ</a>
+            </li>
+
+            <li class="nav-item me-2">
+                <a class="nav-link" href="/gallery/upload/">ЗАГРУЗИТЬ</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/login/">ЛОГИН</a>
+            </li>
+        </ul>
+    </nav>
 </header>
+

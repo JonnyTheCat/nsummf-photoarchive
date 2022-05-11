@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1 class="mb-4">Загрузить фотографии</h1>
+<h1 class="mb-4">Загрузка фотографий</h1>
 
 <form method="post">
     <div class="row">
@@ -11,30 +11,30 @@
                 <div class="row">
                     <div class="col">
                         <div class="mb-3">
-                            <input type="text" class="form-control" id="AuthorName" placeholder="Автор">
+                            <input type="text" class="form-control" id="AuthorName" placeholder="Автор" disabled>
                         </div>
                     </div>
                     <div class="col-2 mb-3">
-                        <input type="number" class="form-control" id="Day" placeholder="День">
+                        <input type="number" class="form-control" id="Day" placeholder="День" disabled>
                     </div>
                     <div class="col-2 mb-3">
-                        <input type="number" class="form-control" id="Month" placeholder="Месяц">
+                        <input type="number" class="form-control" id="Month" placeholder="Месяц" disabled>
                     </div>
                     <div class="col-2 mb-3">
-                        <input type="number" class="form-control" id="Year" placeholder="Год">
+                        <input type="number" class="form-control" id="Year" placeholder="Год" disabled>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col">
                         <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="">
+                            <input type="checkbox" id="SameAuthor" class="form-check-input" id="" disabled>
                             <label class="form-check-label" for="exampleCheck1">Общий автор</label>
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="">
+                            <input type="checkbox" id="SameDate" class="form-check-input" id="" disabled>
                             <label class="form-check-label" for="exampleCheck1">Общая дата</label>
                         </div>
                     </div>
@@ -42,27 +42,33 @@
 
                 <div class="row">
                     <div class="col mb-3">
-                        <textarea class="form-control" id="Description" rows="3" placeholder="Описание (краткое)"></textarea>
+                        <textarea class="form-control" id="Description" rows="5" placeholder="Описание (краткое)" disabled></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col mb-5">
+                        <button type="button" id="PreviousImageButton" class="btn btn-primary" onclick="prevImage();" disabled>Назад</button>
+                    </div>
+                    <div class="col mb-5">
+                        <button type="button" id="NextImageButton" class="btn btn-primary float-end" onclick="nextImage();" disabled>Вперёд</button>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col mb-3">
-                        <button type="button" id="PreviousImageButton" class="btn btn-primary primary-color" onclick="prevImage();" disabled>Назад</button>
-                    </div>
-                    <div class="col mb-3">
-                        <button type="button" id="NextImageButton" class="btn btn-primary primary-color float-end" onclick="nextImage();" disabled>Вперёд</button>
+                        <button type="button" id="Submit" class="btn btn-primary primary-color" onclick="submit();" disabled>Загрузить</button>
+                        <button type="button" id="Reset" class="btn btn-danger" onclick="reset();" disabled>Сброс</button>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="col">
             <div class="row">
                 <input type="file" id="ImagesInput" class="form-control" onchange="showImage();" accept="image/*" multiple>
             </div>
-            <div class="row mb-3">
-                <img class="img-fluid" id="PhotoView" src="" alt="">
+            <div class="row" id="PhotoViewBackground" style="background-color: #434242; border-radius: 10px;">
+                <img class="img-fluid mb-3 mt-3" id="PhotoView" src="" alt="">
             </div>
         </div>
     </div>
@@ -71,6 +77,7 @@
 <script>
     var currentImage = 1;
     var uploadedImages = 0;
+    $('#PhotoViewBackground').hide();
 
     var reader = new FileReader();
     reader.onload = function (e) {
@@ -78,12 +85,22 @@
             .attr('src', e.target.result)
             .attr('alt', 'PhotoPreview');
         $('#ImagesInput').hide();
+        $('#PhotoViewBackground').show();
     };
     
     function showImage() {
         if (ImagesInput.files && ImagesInput.files[0]) {
             reader.readAsDataURL(ImagesInput.files[0]);
             uploadedImages = ImagesInput.files.length;
+
+
+            $('#AuthorName').prop('disabled', false);
+            $('#Day').prop('disabled', false);
+            $('#Month').prop('disabled', false);
+            $('#Year').prop('disabled', false);
+            $('#SameAuthor').prop('disabled', false);
+            $('#SameDate').prop('disabled', false);
+            $('#Description').prop('disabled', false);
             $('#PreviousImageButton').prop('disabled', false);
             $('#NextImageButton').prop('disabled', false);
         }

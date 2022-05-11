@@ -140,3 +140,7 @@ footer {
     background-color: #54B686;
 	border-color: #54B686;
 }
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+}
