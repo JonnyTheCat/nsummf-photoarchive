@@ -2,6 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+TAG_TYPE_CHOICES = [
+    (1, 'Места'),
+    (2, 'События'),
+    (3, 'Другое'),
+]
+
+
 class Photo(models.Model):
     description = models.CharField("Описание", max_length=255)  # Описание
     author = models.CharField("Автор", max_length=30)  # Автор фотографии
@@ -77,12 +84,6 @@ class Job(models.Model):
 
 
 class Tag(models.Model):
-    TAG_TYPE_CHOICES = [
-        (1, 'Места'),
-        (2, 'События'),
-        (3, 'Другое'),
-    ]
-
     tag_name = models.CharField(max_length=40)  # Имя тега
     tag_type = models.SmallIntegerField(choices=TAG_TYPE_CHOICES)  # Тип тега
     popularity = models.IntegerField(default=0, editable=False)  # Популярность тега на сайте

@@ -2,6 +2,88 @@
 
 {% block content %}
 
-<h1>Добавление фото</h1>
+<h1>Загрузить фотографии</h1>
 
+<form method="post">
+    <div class="row">
+        <div class="col-7">
+            <div>
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="AuthorName" placeholder="Автор">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="">
+                            <label class="form-check-label" for="exampleCheck1">Общий автор</label>
+                        </div>
+                    </div>
+                    <div class="col-2 mb-3">
+                        <input type="number" class="form-control" id="Day" placeholder="День">
+                    </div>
+                    <div class="col-2 mb-3">
+                        <input type="number" class="form-control" id="Month" placeholder="Месяц">
+                    </div>
+                    <div class="col-2 mb-3">
+                        <input type="number" class="form-control" id="Year" placeholder="Год">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col mb-3">
+                        <textarea class="form-control" id="Description" rows="3" placeholder="Описание (краткое)"></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col mb-3">
+                        <button type="button" id="PreviousImageButton" onclick="prevImage();">Назад</button>
+                    </div>
+                    <div class="col mb-3">
+                        <button type="button" id="NextImageButton" onclick="nextImage();">Вперёд</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col">
+            <input type="file" id="ImagesInput" onchange="showImage();" accept="image/*" multiple>
+            <img id="PhotoView" src="" alt="" />
+        </div>
+    </div>
+</form>
+
+<script>
+    var currentImage = 1;
+    var uploadedImages = 0;
+
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        $('#PhotoView')
+            .attr('src', e.target.result)
+            .width(150)
+            .height(200);
+    };
+    
+    function showImage() {
+        if (ImagesInput.files && ImagesInput.files[0]) {
+            reader.readAsDataURL(ImagesInput.files[0]);
+            uploadedImages = ImagesInput.files.length;
+        }
+    }
+
+    function prevImage() {
+        if (currentImage > 1) {
+            currentImage = currentImage - 1;
+            reader.readAsDataURL(ImagesInput.files[currentImage - 1]);
+        }
+    }
+
+    function nextImage() {
+        if (currentImage < uploadedImages ) {
+            currentImage = currentImage + 1;
+            reader.readAsDataURL(ImagesInput.files[currentImage - 1]);
+        }
+    }
+</script>
 {% endblock content %}
