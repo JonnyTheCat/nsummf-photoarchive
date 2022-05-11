@@ -47,8 +47,12 @@
             </div>
         </div>
         <div class="col">
-            <input type="file" id="ImagesInput" onchange="showImage();" accept="image/*" multiple>
-            <img id="PhotoView" src="" alt="" />
+            <div class="row mt-1">
+                <input type="file" id="ImagesInput" onchange="showImage();" accept="image/*" multiple>
+            </div>
+            <div class="row mb-3">
+                <img id="PhotoView" src="" alt="">
+            </div>
         </div>
     </div>
 </form>
@@ -61,8 +65,9 @@
     reader.onload = function (e) {
         $('#PhotoView')
             .attr('src', e.target.result)
-            .width(150)
-            .height(200);
+            .width(500);
+        $('#PhotoView').attr('alt', 'PhotoPreview')
+        $('#ImagesInput').hide();
     };
     
     function showImage() {
