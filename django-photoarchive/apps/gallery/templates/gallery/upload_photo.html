@@ -4,6 +4,7 @@
 
 <h1 class="mb-4">Загрузка фотографий</h1>
 
+{% if user.is_authenticated %}
 <form method="post">
     <div class="row">
         <div class="col-7">
@@ -120,4 +121,8 @@
         }
     }
 </script>
+{% else %}
+<p class="text-danger">Войдите, чтобы добавить фотографии на сайт.</p>
+{% endif %}
+
 {% endblock content %}

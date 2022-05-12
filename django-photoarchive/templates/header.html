@@ -22,13 +22,20 @@
                 <a class="nav-link" href="/about/">О ПРОЕКТЕ</a>
             </li>
 
-            <li class="nav-item me-2">
-                <a class="nav-link" href="/gallery/upload/">ЗАГРУЗИТЬ</a>
-            </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/login/">ЛОГИН</a>
-            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item me-2">
+                    <a class="nav-link" href="/gallery/upload/">ЗАГРУЗИТЬ</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="/accounts/logout/">ВЫЙТИ</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/accounts/login/">ВОЙТИ</a>
+                </li>
+            {% endif %}
         </ul>
     </nav>
 </header>

@@ -1,0 +1,28 @@
+{% extends "main.html" %}
+
+{% block content %}
+<h1 class="mb-4">Войти в аккаунт</h1>
+
+{% if form.errors %}
+    <p class="mb-3 text-danger">Логин и пароль не совпадают.</p>
+{% endif %}
+
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+<table>
+    <div class="row mb-2">
+        <div class="col-1 ">{{ form.username.label_tag }}</div>
+        <div class="col-1">{{ form.username }}</div>
+    </div>
+
+    <div class="row mb-2">
+        <div class="col-1">{{ form.password.label_tag }}</div>
+        <div class="col-1">{{ form.password }}</div>
+    </div>
+</table>
+
+<input class="form-control mt-3" type="submit" value="Войти" />
+<input class="form-control" type="hidden" name="next" value="{{ next }}" />
+</form>
+
+{% endblock %}

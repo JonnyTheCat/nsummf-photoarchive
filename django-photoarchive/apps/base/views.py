@@ -11,10 +11,5 @@ def about(request):
 def contact(request):
     return render(request, 'base/contacts.html')
 
-
-
-def login(request):
-    return render(request, 'base/login.html')
-
 def register(request):
     return render(request, 'base/register.html')
