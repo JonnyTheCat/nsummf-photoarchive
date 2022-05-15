@@ -6,6 +6,7 @@
 
 {% if user.is_authenticated %}
 <form method="post">
+    {% csrf_token %}
     <div class="row">
         <div class="col-7">
             <div>
@@ -49,6 +50,17 @@
 
                 <div class="row">
                     <div class="col mb-5">
+                        <div id="TagContainer"></div>
+                        <button type="button" id="AddTag" class="btn btn-primary" onclick="addTag()" disabled>Добавить тег</button>
+                    </div>
+                    <div class="col mb-5">
+                        <div id="PersonContainer"></div>
+                        <button type="button" id="AddPerson" class="btn btn-primary float-end" onclick="addPerson()" disabled>Добавить человека</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col mb-5">
                         <button type="button" id="PreviousImageButton" class="btn btn-primary" onclick="prevImage();" disabled>Назад</button>
                     </div>
                     <div class="col mb-5">
@@ -76,6 +88,11 @@
 </form>
 
 <script>
+    const maxTags = 5;
+    const maxPersons = 5;
+    var currentTags = 0;
+    var currentPersons = 0;
+
     var currentImage = 1;
     var uploadedImages = 0;
     $('#PhotoViewBackground').hide();
@@ -104,6 +121,8 @@
             $('#Description').prop('disabled', false);
             $('#PreviousImageButton').prop('disabled', false);
             $('#NextImageButton').prop('disabled', false);
+            $('#AddTag').prop('disabled', false);
+            $('#AddPerson').prop('disabled', false);
         }
     }
 
@@ -118,6 +137,30 @@
         if (currentImage < uploadedImages ) {
             currentImage = currentImage + 1;
             reader.readAsDataURL(ImagesInput.files[currentImage - 1]);
+        }
+    }
+
+    function addTag() {
+        if (currentTags < maxTags)
+        {
+            $('#TagContainer').append('<div class="input-group mb-3"><input type="text" class="form-control" placeholder="Тег"><button class="btn btn-outline-danger" type="button" id="DeleteTagBtn">X</button></div>');
+            currentTags = currentTags + 1;
+        } 
+        if (currentTags == maxTags)
+        {
+            $('#AddTag').hide();
+        }
+    }
+
+    function addPerson() {
+        if (currentPersons < maxPersons)
+        {
+            $('#PersonContainer').append('<div class="input-group mb-3"><input type="text" class="form-control" placeholder="Человек"><button class="btn btn-outline-danger" type="button" id="DeletePersonBtn">X</button></div>');
+            currentPersons = currentPersons + 1;
+        }
+        if (currentPersons == maxPersons)
+        {
+            $('#AddPerson').hide();
         }
     }
 </script>
