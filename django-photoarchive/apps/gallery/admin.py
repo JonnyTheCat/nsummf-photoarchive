@@ -31,3 +31,6 @@ class PhotoAdmin(admin.ModelAdmin):
     ]
     list_display = ("description", "year_of_capture", "id")
     list_filter = ("year_of_capture", "tags", "people")
+
+admin.site.register(Job)
+admin.site.register(Title)

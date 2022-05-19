@@ -93,7 +93,7 @@
     var currentTags = 0;
     var currentPersons = 0;
 
-    var currentImage = 1;
+    var currentImage = 0;
     var uploadedImages = 0;
 
     var photoArray = [];
@@ -130,16 +130,16 @@
     }
 
     function prevImage() {
-        if (currentImage > 1) {
+        if (currentImage > 0) {
             currentImage--;
-            reader.readAsDataURL(ImagesInput.files[currentImage - 1]);
+            reader.readAsDataURL(ImagesInput.files[currentImage]);
         }
     }
 
     function nextImage() {
-        if (currentImage < uploadedImages ) {
+        if (currentImage < uploadedImages - 1) {
             currentImage++;
-            reader.readAsDataURL(ImagesInput.files[currentImage - 1]);
+            reader.readAsDataURL(ImagesInput.files[currentImage]);
         }
     }
 
@@ -205,8 +205,7 @@
         }
     }
 
-    function deleteTag(n)
-    {
+    function deleteTag(n) {
         $('#TagForm-' + n).remove();
         for (let i = n + 1; i < maxTags; i++) {
             $('#TagForm-' + i).attr('id', 'TagForm-' + (i-1));
@@ -220,8 +219,7 @@
         $('#AddTag').show();
     }
 
-    function deletePerson(n)
-    {
+    function deletePerson(n) {
         $('#PersonForm-' + n).remove();
         for (let i = n + 1; i < maxPersons; i++) {
             $('#PersonForm-' + i).attr('id', 'PersonForm-' + (i-1));
