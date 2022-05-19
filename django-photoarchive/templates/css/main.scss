@@ -1,0 +1,90 @@
+body{
+    background-color:#fefefe;
+}
+
+@font-face { font-family: Averta; src: url('fonts/AvertaCY/Averta Cyrillic Regular.otf'); } 
+
+:root {
+    --primary-color: #56A28B;
+    --secondary-color: #D7F6DC;
+}
+
+.mybar:before {
+    content:'';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 4em;
+    z-index: -1;
+    background-color: var(--secondary-color);
+}
+
+.nav-button{
+    color: var(--primary-color);
+    font-family: 'Averta';
+    background-color: white;
+    padding: .5em 1em;
+    border-radius: 0.5em;
+}
+
+.nav-button:hover{
+    text-decoration: none;
+}
+
+.carousel{
+    width:100%; 
+    height:25em;
+    overflow:hidden;
+    margin-top: 2em;
+}
+
+.carousel-inner img {
+    margin: auto;
+}
+
+.center-title{
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+}
+
+.tag-title{ 
+    text-align: center;
+    font-family: 'Averta';
+    color: var(--primary-color);
+}
+
+.tag-description{
+    font-family: 'Averta';
+    text-align: center;
+}
+
+.more-tag-button{
+    color: var(--primary-color);
+    font-family: 'Averta';
+    margin-top: 0.5em;
+    padding: .5em 1em;
+    border-radius: 0.5em;
+    outline: solid;
+}
+
+.more-tag-button:hover{
+    text-decoration: none;
+}
+
+.line-pattern{
+    background-image: url("../assets/patterns/line.svg");
+}
+
+.more-last-photo{
+    color: var(--primary-color);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    color: white;
+    padding: .5em 5em;
+    background-color: var(--primary-color);
+}
+
+.more-last-photo:hover{
+    text-decoration: none;
+}
