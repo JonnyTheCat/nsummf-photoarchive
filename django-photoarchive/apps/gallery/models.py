@@ -16,9 +16,9 @@ class Photo(models.Model):
     people = models.ManyToManyField("Person")  # Люди на фото
     tags = models.ManyToManyField("Tag")  # Теги
 
-    year_of_capture = models.SmallIntegerField()
-    month_of_capture = models.SmallIntegerField(blank=True, null=True)  # Год, месяц и день, когда было сделано фото
-    day_of_capture = models.SmallIntegerField(blank=True, null=True)
+    year_of_capture = models.SmallIntegerField("Год")
+    month_of_capture = models.SmallIntegerField("Месяц", blank=True, null=True)  # Год, месяц и день, когда было сделано фото
+    day_of_capture = models.SmallIntegerField("День", blank=True, null=True)
 
     hidden = models.BooleanField("Скрыто")  # Скрыта ли фотография из галереи?
 
@@ -35,17 +35,17 @@ class Photo(models.Model):
 
 
 class Person(models.Model):
-    name = models.CharField(max_length=60)  # Имя человека
+    name = models.CharField("ФИО", max_length=60)  # Имя человека
     popularity = models.IntegerField(default=0, editable=False)  # Популярность человека на сайте
 
     # Профиль человека
     # Когда у человека значение has_profile = True, то 
     # создаётся отдельная страница с фотографиями, на которых 
     # отмечен этот человек, а также его биографией.
-    has_profile = models.BooleanField()  # Существует ли профиль?
-    date_of_birth = models.DateField(blank=True, null=True)  # Дата рождения
-    date_of_death = models.DateField(blank=True, null=True)  # ...и смерти (если такая есть)
-    description = models.TextField(blank=True)  # Описание в профиле
+    has_profile = models.BooleanField("Есть профиль")  # Существует ли профиль?
+    date_of_birth = models.DateField("Дата рождения", blank=True, null=True)  # Дата рождения
+    date_of_death = models.DateField("Дата смерти", blank=True, null=True)  # ...и смерти (если такая есть)
+    description = models.TextField("Описание", blank=True)  # Описание в профиле
     title_photo = models.ForeignKey(Photo, blank=True, null=True, on_delete=models.SET_NULL)  # Фото профиля
 
     class Meta:
@@ -84,16 +84,16 @@ class Job(models.Model):
 
 
 class Tag(models.Model):
-    tag_name = models.CharField(max_length=40)  # Имя тега
-    tag_type = models.SmallIntegerField(choices=TAG_TYPE_CHOICES)  # Тип тега
+    tag_name = models.CharField("Имя тега", max_length=40)  # Имя тега
+    tag_type = models.SmallIntegerField("Тип тега", choices=TAG_TYPE_CHOICES)  # Тип тега
     popularity = models.IntegerField(default=0, editable=False)  # Популярность тега на сайте
 
     # Профиль тега
     # Когда у тега значение has_profile = True, то как и в Person 
     # создаётся отдельная страница с фотографиями с 
     # этим тегом и описанием этого тега.
-    has_profile = models.BooleanField()  # Существует ли профиль?
-    description = models.TextField(blank=True, null=True)  # Описание в профиле
+    has_profile = models.BooleanField("Есть профиль")  # Существует ли профиль?
+    description = models.TextField("Описание", blank=True, null=True)  # Описание в профиле
     title_photo = models.ForeignKey(Photo, blank=True, null=True, on_delete=models.SET_NULL)  # Фото профиля
 
     class Meta:

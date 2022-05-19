@@ -95,6 +95,9 @@
 
     var currentImage = 1;
     var uploadedImages = 0;
+
+    var photoArray = [];
+    
     $('#PhotoViewBackground').hide();
 
     var reader = new FileReader();
@@ -128,14 +131,14 @@
 
     function prevImage() {
         if (currentImage > 1) {
-            currentImage = currentImage - 1;
+            currentImage--;
             reader.readAsDataURL(ImagesInput.files[currentImage - 1]);
         }
     }
 
     function nextImage() {
         if (currentImage < uploadedImages ) {
-            currentImage = currentImage + 1;
+            currentImage++;
             reader.readAsDataURL(ImagesInput.files[currentImage - 1]);
         }
     }
@@ -143,8 +146,27 @@
     function addTag() {
         if (currentTags < maxTags)
         {
-            $('#TagContainer').append('<div class="input-group mb-3"><input type="text" class="form-control" placeholder="Тег"><button class="btn btn-outline-danger" type="button" id="DeleteTagBtn">X</button></div>');
-            currentTags = currentTags + 1;
+            $("<div>", { 
+                id: "TagForm-" + currentTags,
+                class: "input-group mb-3"
+            }).appendTo('#TagContainer');
+
+            $('<input></input>', {
+                id: 'TagInput-' + currentTags,
+                type: 'text',
+                class: 'form-control',
+                placeholder: 'Тег'
+            }).appendTo('#TagForm-' + currentTags);
+
+            $('<button></button>', {
+                id: 'DeleteTag-' + currentTags,
+                type: 'button',
+                class: 'btn btn-outline-danger',
+                onclick: 'deleteTag(' + currentTags + ');'
+            }).appendTo('#TagForm-' + currentTags);
+            $('#DeleteTag-' + currentTags).html('X');
+
+            currentTags++;
         } 
         if (currentTags == maxTags)
         {
@@ -155,13 +177,62 @@
     function addPerson() {
         if (currentPersons < maxPersons)
         {
-            $('#PersonContainer').append('<div class="input-group mb-3"><input type="text" class="form-control" placeholder="Человек"><button class="btn btn-outline-danger" type="button" id="DeletePersonBtn">X</button></div>');
-            currentPersons = currentPersons + 1;
+            $('<div>', { 
+                id: 'PersonForm-' + currentPersons,
+                class: 'input-group mb-3'
+            }).appendTo('#PersonContainer');
+
+            $('<input></input>', {
+                id: 'PersonInput-' + currentPersons,
+                type: 'text',
+                class: 'form-control',
+                placeholder: 'Человек'
+            }).appendTo('#PersonForm-' + currentPersons);
+
+            $('<button></button>', {
+                id: 'DeletePerson-' + currentPersons,
+                type: 'button',
+                class: 'btn btn-outline-danger',
+                onclick: 'deletePerson(' + currentPersons + ');'
+            }).appendTo('#PersonForm-' + currentPersons);
+            $('#DeletePerson-' + currentPersons).html('X');
+            
+            currentPersons++;
         }
         if (currentPersons == maxPersons)
         {
             $('#AddPerson').hide();
         }
+    }
+
+    function deleteTag(n)
+    {
+        $('#TagForm-' + n).remove();
+        for (let i = n + 1; i < maxTags; i++) {
+            $('#TagForm-' + i).attr('id', 'TagForm-' + (i-1));
+            $('#TagInput-' + i).attr('id', 'TagInput-' + (i-1));
+            $('#DeleteTag-' + i)
+                .attr('id', 'DeleteTag-' + (i-1))
+                .attr('onclick', 'deleteTag(' + (i-1) + ');');
+
+        }
+        currentTags--;
+        $('#AddTag').show();
+    }
+
+    function deletePerson(n)
+    {
+        $('#PersonForm-' + n).remove();
+        for (let i = n + 1; i < maxPersons; i++) {
+            $('#PersonForm-' + i).attr('id', 'PersonForm-' + (i-1));
+            $('#PersonInput-' + i).attr('id', 'PersonInput-' + (i-1));
+            $('#DeletePerson-' + i)
+                .attr('id', 'DeletePerson-' + (i-1))
+                .attr('onclick', 'deletePerson(' + (i-1) + ');');
+
+        }
+        currentPersons--;
+        $('#AddPerson').show();
     }
 </script>
 {% else %}
