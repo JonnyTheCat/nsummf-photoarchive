@@ -13,10 +13,10 @@ class Photo(models.Model):
     description = models.CharField("Описание", max_length=255)  # Описание
     author = models.CharField("Автор", max_length=30)  # Автор фотографии
 
-    people = models.ManyToManyField("Person")  # Люди на фото
-    tags = models.ManyToManyField("Tag")  # Теги
+    people = models.ManyToManyField("Person", blank=True, null=True)  # Люди на фото
+    tags = models.ManyToManyField("Tag", blank=True, null=True)  # Теги
 
-    year_of_capture = models.SmallIntegerField("Год")
+    year_of_capture = models.SmallIntegerField("Год", blank=True, null=True)
     month_of_capture = models.SmallIntegerField("Месяц", blank=True, null=True)  # Год, месяц и день, когда было сделано фото
     day_of_capture = models.SmallIntegerField("День", blank=True, null=True)
 
