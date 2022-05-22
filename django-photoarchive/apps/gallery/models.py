@@ -10,8 +10,8 @@ TAG_TYPE_CHOICES = [
 
 
 class Photo(models.Model):
-    description = models.CharField("Описание", max_length=255, default='Неизвестно', blank=True, null=True)  # Описание
-    author = models.CharField("Автор", max_length=30, blank=True, null=True)  # Автор фотографии
+    description = models.CharField("Описание", max_length=255, blank=True, null=True)  # Описание
+    author = models.CharField("Автор", max_length=30, default='Неизвестно', blank=True, null=True)  # Автор фотографии
 
     people = models.ManyToManyField("Person", blank=True, null=True)  # Люди на фото
     tags = models.ManyToManyField("Tag", blank=True, null=True)  # Теги
@@ -20,7 +20,7 @@ class Photo(models.Model):
     month_of_capture = models.SmallIntegerField("Месяц", blank=True, null=True)  # Год, месяц и день, когда было сделано фото
     day_of_capture = models.SmallIntegerField("День", blank=True, null=True)
 
-    hidden = models.BooleanField("Скрыто")  # Скрыта ли фотография из галереи?
+    hidden = models.BooleanField("Скрыто", default=False)  # Скрыта ли фотография из галереи?
 
     uploaded_by = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     publish_date = models.DateTimeField(auto_now_add=True)  # Дата публикации фото на сайте
