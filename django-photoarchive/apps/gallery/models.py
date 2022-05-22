@@ -10,8 +10,8 @@ TAG_TYPE_CHOICES = [
 
 
 class Photo(models.Model):
-    description = models.CharField("Описание", max_length=255)  # Описание
-    author = models.CharField("Автор", max_length=30)  # Автор фотографии
+    description = models.CharField("Описание", max_length=255, default='Неизвестно', blank=True, null=True)  # Описание
+    author = models.CharField("Автор", max_length=30, blank=True, null=True)  # Автор фотографии
 
     people = models.ManyToManyField("Person", blank=True, null=True)  # Люди на фото
     tags = models.ManyToManyField("Tag", blank=True, null=True)  # Теги
