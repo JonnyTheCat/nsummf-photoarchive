@@ -5,11 +5,18 @@
 <div class="photo-block">
     <div class="photo-wrapper">
         {% load static %}
-        <img class="photo" src="{% static 'img/photos/5.jpg' %}" width="100%">
+        <img class="photo" src="{% static 'img/photos/1.jpg' %}" width="100%">
     </div>
     <div class="photo-description">
+        {% if photo.author %}
         <h4 class="description-text"><strong>Автор фото:</strong> {{photo.author}}</h4>
+        {% endif %}
+        {% if photo.description %}
         <h4 class="description-text"><strong>Описание:</strong> {{photo.description}}</h4>
+        {% endif %}
+        {% if photo.year_of_capture %}
+        <h4 class="description-text"><strong>Год съёмки:</strong> {{photo.year_of_capture}}</h4>
+        {% endif %}
         <h4 class="description-text"><strong>ID:</strong> {{photo.id}}</h4>
     </div>
 </div>
