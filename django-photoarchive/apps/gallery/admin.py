@@ -26,7 +26,7 @@ class PersonAdmin(admin.ModelAdmin):
 class PhotoAdmin(admin.ModelAdmin):
     readonly_fields = ('id',)
     fieldsets = [
-        ('Основная информация', {'classes': ('collapse',), 'fields': ('author', 'description', 'day_of_capture', 'month_of_capture', 'year_of_capture')}),
+        ('Основная информация', {'classes': ('collapse',), 'fields': ('author', 'description', 'day_of_capture', 'month_of_capture', 'year_of_capture', 'hidden')}),
         ('Теги и люди на фото', {'classes': ('collapse',), 'fields': ('people', 'tags')}),
     ]
     list_display = ("description", "year_of_capture", "id")

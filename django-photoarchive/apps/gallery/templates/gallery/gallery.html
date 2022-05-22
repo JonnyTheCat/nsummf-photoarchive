@@ -2,6 +2,53 @@
 
 {% block content %}
 
-<h1>Тест галлереи</h1>
+<h1 class="mb-3">Галлерея</h1>
 
+<div class="container">
+    <div class="row">
+        <div class="col-3 text-white" style="background-color: #434242; border-radius: 10px;">
+            <form method="GET">
+                <div class="mt-3 mb-3">
+                    <h6>Автор</h6>
+                    {{ filter.author }}
+                </div>
+                <h6>Годы съёмки фото</h6>
+                <div class="input-group mb-3">
+                    {{ filter.start_year }}
+                    {{ filter.end_year }}
+                </div>
+                <h6>Теги</h6>
+                <div class="mb-3">
+                    <button type="button" class="btn btn-light w-100 btn-sm" id="AddPersonFilter">Добавить тег (WIP)</button>
+                </div>
+                <h6>Люди на фото</h6>
+                <div class="mb-5">
+                    <button type="button" class="btn btn-light w-100 btn-sm" id="AddTagFilter">Добавить человека (WIP)</button>
+                </div>
+                <button type="submit" class="btn btn-primary primary-color mb-3 w-100" id="Apply">Применить</button>
+            </form>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                {% for photograph in photo %}
+                <div class="col-md-4">
+                    <div class="card my-2">
+                        {% load static %}
+                        <img class="image-thumbail" src="{% static 'img/photos/1.jpg' %}">
+                        <a href="/gallery/id/{{ photograph.id }}" class="btn btn-outline-dark btn-sm m-1">Открыть</a>
+                    </div>
+                </div>
+                {% empty %}
+                <h3>Фотографии не были найдены</h3>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#id_author').attr('class', 'form-control form-control-sm')
+    $('#id_start_year').attr('class', 'form-control form-control-sm').attr('placeholder', 'От')
+    $('#id_end_year').attr('class', 'form-control form-control-sm').attr('placeholder', 'До')
+</script>
 {% endblock content %}
