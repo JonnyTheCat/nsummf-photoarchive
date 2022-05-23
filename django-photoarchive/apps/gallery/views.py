@@ -16,12 +16,22 @@ def gallery(request):
         photo = photo.filter(author__icontains=author)
 
     if 'start_year' in request.GET and request.GET['start_year'] != "":
-        author = request.GET.get('start_year')
-        photo = photo.filter(year_of_capture__gt=str(int(author) - 1))
+        start_year = request.GET.get('start_year')
+        photo = photo.filter(year_of_capture__gt=str(int(start_year) - 1))
 
-    if 'author' in request.GET and request.GET['end_year'] != "":
-        author = request.GET.get('end_year')
-        photo = photo.filter(year_of_capture__lt=str(int(author) + 1))
+    if 'end_year' in request.GET and request.GET['end_year'] != "":
+        end_year = request.GET.get('end_year')
+        photo = photo.filter(year_of_capture__lt=str(int(end_year) + 1))
+    
+    for i in range(0,5):
+        if 'form-' + str(i) + '-tag_name' in request.GET and request.GET['form-' + str(i) + '-tag_name'] != "":
+            tag = request.GET.get('form-' + str(i) + '-tag_name')
+            photo = photo.filter(tags__tag_name__icontains=tag)
+
+    for i in range(0,5):
+        if 'form-' + str(i) + '-person_name' in request.GET and request.GET['form-' + str(i) + '-person_name'] != "":
+            person = request.GET.get('form-' + str(i) + '-person_name')
+            photo = photo.filter(people__name__icontains=person)
 
     photo_filter = FilterForm()
     return render(request, 'gallery/gallery.html', {'photo': photo, 'filter': photo_filter})
@@ -34,6 +44,8 @@ def photo(request, photo_id):
     # Иначе возвращаем 404
     try:
         photo = Photo.objects.get(pk=photo_id)
-        return render(request, 'gallery/photo.html', {'photo': photo})
+        tags = photo.tags.all()
+        people = photo.people.all()
+        return render(request, 'gallery/photo.html', {'photo': photo, 'tags': tags, 'people': people})
     except Photo.DoesNotExist:
         return error_404(request)

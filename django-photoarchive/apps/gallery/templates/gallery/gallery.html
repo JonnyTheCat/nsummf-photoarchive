@@ -19,10 +19,12 @@
                 </div>
                 <h6>Теги</h6>
                 <div class="mb-3">
+                    {{ filter.tag_formset }}
                     <button type="button" class="btn btn-light w-100 btn-sm" id="AddPersonFilter">Добавить тег (WIP)</button>
                 </div>
                 <h6>Люди на фото</h6>
                 <div class="mb-5">
+                    {{ filter.people_formset }}
                     <button type="button" class="btn btn-light w-100 btn-sm" id="AddTagFilter">Добавить человека (WIP)</button>
                 </div>
                 <button type="submit" class="btn btn-primary primary-color mb-3 w-100" id="Apply">Применить</button>
@@ -34,7 +36,7 @@
                 <div class="col-md-4">
                     <div class="card my-2">
                         {% load static %}
-                        <img class="image-thumbail" src="{% static 'img/photos/1.jpg' %}">
+                        <img class="image-thumbail" src="{% static 'img/photos/placeholder.png' %}">
                         <a href="/gallery/id/{{ photograph.id }}" class="btn btn-outline-dark btn-sm m-1">Открыть</a>
                     </div>
                 </div>
@@ -47,8 +49,16 @@
 </div>
 
 <script>
-    $('#id_author').attr('class', 'form-control form-control-sm')
-    $('#id_start_year').attr('class', 'form-control form-control-sm').attr('placeholder', 'От')
-    $('#id_end_year').attr('class', 'form-control form-control-sm').attr('placeholder', 'До')
+    $('label').hide();
+    $('#id_author').attr('class', 'form-control form-control-sm').attr('placeholder', 'Добавьте автора...');;
+    $('#id_start_year').attr('class', 'form-control form-control-sm').attr('placeholder', 'От');
+    $('#id_end_year').attr('class', 'form-control form-control-sm').attr('placeholder', 'До');
+    for (var i = 0; i <= 5; i++) {
+        $('#id_form-' + i + '-tag_name').attr('class', 'form-control form-control-sm mb-3').attr('placeholder', 'Добавьте тег...');
+        $('#id_form-' + i + '-person_name').attr('class', 'form-control form-control-sm mb-3').attr('placeholder', 'Добавьте человека...');
+    }
+    $('#AddTagFilter').hide();
+    $('#AddPersonFilter').hide();
+
 </script>
 {% endblock content %}
